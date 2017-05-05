@@ -22,6 +22,16 @@ function ee_lib_echo_fail()
 {
    echo $(tput setaf 1)$@$(tput sgr0)
 }
+# Define variables for later use
+ee_branch=$1
+readonly ee_linux_distro=$(lsb_release -i | awk '{print $3}')
+readonly ee_distro_version=$(lsb_release -sc)
+
+# Checking linux distro
+if [ "$ee_linux_distro" != "CentOS" ]; then
+    ee_lib_echo_fail "iki Go Centos tok Cok!!!!!"
+    exit 100
+fi
 
 # Execute: update
 ee_lib_echo "Updating, please wait..."
@@ -35,16 +45,28 @@ service httpd start
 /etc/rc.d/init.d/iptables save
 yum -y install php php-common php-xml php-mbstring unzip curl wget htop
 yum install epel*
+
+lsb_release -d | egrep -e "6." &>> /dev/null
+if [ "$?" -ne "1" ]; then
+    wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    sudo rpm -Uvh remi-release-6*.rpm
+fi
+
+lsb_release -d | egrep -e "7." &>> /dev/null
+if [ "$?" -ne "1" ]; then
+    wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm 
+    sudo rpm -Uvh remi-release-7*.rpm
+fi
+
 wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm
+
 yum -y update
 yum -y --enablerepo=remi,remi-php56 update
 yum -y --enablerepo=remi,remi-php56 upgrade
 chkconfig httpd on
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://pastebin.com/raw/k0exPpa4
-
-
 
 # Php version
 echo -n "[In progress] Detect PHP version ..."
