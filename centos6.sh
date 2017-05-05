@@ -2,22 +2,25 @@
 clear
 # Checking permissions
 if [[ $EUID -ne 0 ]]; then
-    ee_lib_echo_fail "Sudo privilege required..."
-    exit 100
+   ee_lib_echo_fail "Sudo privilege required..."
+   exit 100
 fi
 
 # Define echo function
 # Blue color
-function ee_lib_echo(){
-    echo $(tput setaf 4)$@$(tput sgr0)
+function ee_lib_echo()
+{
+   echo $(tput setaf 4)$@$(tput sgr0)
 }
 # White color
-function ee_lib_echo_info(){
-    echo $(tput setaf 7)$@$(tput sgr0)
+function ee_lib_echo_info()
+{
+   echo $(tput setaf 7)$@$(tput sgr0)
 }
 # Red color
-function ee_lib_echo_fail(){
-    echo $(tput setaf 1)$@$(tput sgr0)
+function ee_lib_echo_fail()
+{
+   echo $(tput setaf 1)$@$(tput sgr0)
 }
 
 # Execute: update
@@ -41,16 +44,17 @@ yum -y update &>> /dev/null
 yum -y install --enablerepo=remi,remi-php56  &>> /dev/null
 yum -y --enablerepo=remi,remi-php56 update &>> /dev/null
 yum -y --enablerepo=remi,remi-php56 upgrade &>> /dev/null
-
 chkconfig httpd on &>> /dev/null
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://pastebin.com/raw/k0exPpa4 &>> /dev/null
 
+
+
 # Php version
 echo -n "[In progress] Detect PHP version ..."
 VER_PHP="$(command php --version 2>'/dev/null' \
-    | command head -n 1 \
-    | command cut --characters=5-7)"
+   | command head -n 1 \
+   | command cut --characters=5-7)"
 sleep 3s
 echo -e "\r\e[0;32m[OK]\e[0m Detect PHP version  : $VER_PHP   "
 
