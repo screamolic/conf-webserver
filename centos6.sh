@@ -7,11 +7,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # Define echo function
-# Blue color
-function ee_lib_echo()
-{
-   echo $(tput setaf 4)$@$(tput sgr0)
-}
 # White color
 function ee_lib_echo_info()
 {
@@ -28,7 +23,7 @@ ee_lib_echo "Updating, please wait..."
 yum -y update &>> /dev/null
 
 # Execute: installing
-ee_lib_echo "Installing webserver, please wait..."
+echo "Installing webserver, please wait..."
 yum -y install httpd &>> /dev/null
 service httpd start &>> /dev/null
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT &>> /dev/null
@@ -59,7 +54,7 @@ sleep 3s
 echo -e "\r\e[0;32m[OK]\e[0m Detect PHP version  : $VER_PHP   "
 
 # Execute: installing ioncube
-ee_lib_echo "Installing ioncube, please wait..."
+echo "Installing ioncube, please wait..."
 cd /var/www/html &>> /dev/null
 wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz &>> /dev/null
 tar xvfz ioncube* &>> /dev/null
@@ -67,6 +62,6 @@ cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
 service httpd restart &>> /dev/null
 
-ee_lib_echo "beres..."
+echo "beres..."
 php -v
 ee_lib_echo_info "silahkan akses http://ip-address/ioncube/loader-wizard.php"
