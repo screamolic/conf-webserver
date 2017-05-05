@@ -46,8 +46,6 @@ chkconfig httpd on &>> /dev/null
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://pastebin.com/raw/k0exPpa4 &>> /dev/null
 
-
-
 # Php version
 echo -n "[In progress] Detect PHP version ..."
 VER_PHP="$(command php --version 2>'/dev/null' \
