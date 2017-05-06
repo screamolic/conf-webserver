@@ -46,18 +46,6 @@ service httpd start
 yum -y install php php-common php-xml php-mbstring unzip curl wget htop
 yum install epel*
 
-lsb_release -d | egrep -e "6." &>> /dev/null
-if [ "$?" -ne "1" ]; then
-    wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-    sudo rpm -Uvh remi-release-6*.rpm
-fi
-
-lsb_release -d | egrep -e "7." &>> /dev/null
-if [ "$?" -ne "1" ]; then
-    wget http://rpms.famillecollet.com/enterprise/remi-release-7.rpm 
-    sudo rpm -Uvh remi-release-7*.rpm
-fi
-
 wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm
 
@@ -84,7 +72,7 @@ tar xvfz ioncube*
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
 service httpd restart
-
-ee_lib_echo "beres..."
+clear
+ee_lib_echo "Cek Spesifikasi:"
 php -v
-ee_lib_echo_info "silahkan akses http://ip-address/ioncube/loader-wizard.php"
+httpd -v
