@@ -22,16 +22,6 @@ function ee_lib_echo_fail()
 {
    echo $(tput setaf 1)$@$(tput sgr0)
 }
-# Define variables for later use
-ee_branch=$1
-readonly ee_linux_distro=$(lsb_release -i | awk '{print $3}')
-readonly ee_distro_version=$(lsb_release -sc)
-
-# Checking linux distro
-if [ "$ee_linux_distro" != "CentOS" ]; then
-    ee_lib_echo_fail "iki Go Centos tok Cok!!!!!"
-    exit 100
-fi
 
 # Execute: update
 ee_lib_echo "Updating, please wait..."
