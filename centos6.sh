@@ -34,7 +34,7 @@ service httpd start
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
 yum -y install php php-common php-xml php-mbstring unzip curl wget htop
-yum install epel*
+yum -y install epel*
 wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm
 yum -y update
