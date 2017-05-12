@@ -42,7 +42,7 @@ yum -y --enablerepo=remi,remi-php56 update
 yum -y --enablerepo=remi,remi-php56 upgrade
 chkconfig httpd on
 rm -f /etc/httpd/conf/httpd.conf
-wget -O /etc/httpd/conf/httpd.conf https://pastebin.com/raw/k0exPpa4
+wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
 
 # Php version
 echo -n "[In progress] Detect PHP version ..."
