@@ -35,16 +35,12 @@ service httpd start
 /etc/rc.d/init.d/iptables save
 yum -y install php php-common php-dev php-xml php-mbstring php-pear php-pecl-geoip php-devel geoip geoip-devel gcc make unzip curl wget htop
 sudo pecl install geoip
-rm -f /etc/httpd/conf/httpd.conf
-wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
+
 
 #d install geoip
 cd /usr/share/GeoIP
 wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz
 gunzip GeoIP.dat.gz
-gunzip GeoLiteCity.dat.gz
-mv GeoLiteCity.dat GeoIPCity.dat
 
 # Php version
 echo -n "[In progress] Detect PHP version ..."
