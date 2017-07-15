@@ -38,8 +38,6 @@ sudo pecl install geoip
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
 
-echo -e "; Enable geoip extension module\nextension=geoip.so\n" >> /etc/php.d/geoip.ini
-
 #d install geoip
 cd /usr/share/GeoIP
 wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
