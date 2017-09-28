@@ -1,0 +1,108 @@
+#!/bin/bash
+clear
+# EasyEngine installer script.
+# This script is designed to install latest EasyEngine
+
+# Remove old clone of EasyEngine (ee) if any
+rm -rf /tmp/easyengine &>> /dev/null
+
+# Checking permissions
+if [[ $EUID -ne 0 ]]; then
+    ee_lib_echo_fail "Sudo privilege required..."
+    exit 100
+fi
+
+# Define echo function
+# Blue color
+function ee_lib_echo()
+{
+    echo $(tput setaf 4)$@$(tput sgr0)
+}
+# White color
+function ee_lib_echo_info()
+{
+    echo $(tput setaf 7)$@$(tput sgr0)
+}
+# Red color
+function ee_lib_echo_fail()
+{
+    echo $(tput setaf 1)$@$(tput sgr0)
+}
+
+# Capture errors
+function ee_lib_error()
+{
+    echo "[ `date` ] $(tput setaf 1)$@$(tput sgr0)"
+    exit $2
+}
+
+# Define variables for later use
+ee_branch=$1
+readonly ee_linux_distro=$(lsb_release -i | awk '{print $3}')
+readonly ee_distro_version=$(lsb_release -sc)
+
+# Checking linux distro
+if [ "$ee_linux_distro" != "Ubuntu" ] && [ "$ee_linux_distro" != "Debian" ]; then
+    ee_lib_echo_fail "EasyEngine (ee) only support Ubuntu 12.04/14.04/16.04 and Debian 7.x/8.x"
+    exit 100
+fi
+
+# EasyEngine (ee) only support all Ubuntu/Debian distro except the distro reached EOL
+lsb_release -d | egrep -e "12.04|14.04|16.04|wheezy|jessie" &>> /dev/null
+if [ "$?" -ne "0" ]; then
+    ee_lib_echo_fail "EasyEngine (ee) only support Ubuntu 12.04/14.04/16.04 and Debian 7.x/8.x"
+    exit 100
+fi
+
+# Execute: apt-get update
+ee_lib_echo "Executing apt-get update, please wait..."
+apt-get update &>> /dev/null
+
+# Checking lsb_release package
+if [ ! -x /usr/bin/lsb_release ]; then
+    ee_lib_echo "Installing lsb-release, please wait..."
+    apt-get -y install lsb-release &>> /dev/null
+fi
+
+ee_lib_echo "Remove Apache2 Service..."
+/etc/init.d/apache2 stop &>> /dev/null
+/etc/init.d/postfix stop &>> /dev/null
+/etc/init.d/sendmail stop &>> /dev/null
+apt-get purge apache2 postfix sendmail -y &>> /dev/null
+
+ee_lib_echo "Installing Some Tools terminal usefull..."
+apt-get install nano -y &>> /dev/null
+apt-get install htop -y &>> /dev/null
+apt-get install zip -y &>> /dev/null 
+apt-get install fail2ban -y &>> /dev/null
+apt-get install unzip -y &>> /dev/null
+apt-get install curl libcurl3 libcurl3-dev -y &>> /dev/null
+apt-get install bc -y &>> /dev/null
+
+ee_lib_echo "Installing Easy Engine..."
+wget -qO ee rt.cx/ee && bash ee
+
+ee stack install
+
+wget -O /etc/nginx/common/wpcommon.conf  https://pastebin.com/raw/UQERFYjk
+
+
+# Checking linux distro
+if [ "$ee_linux_distro" != "Debian" ]; then
+		wget -O /etc/php/5.6/fpm/pool.d/www.conf https://pastebin.com/raw/XV5Jk5PD
+	else
+		wget -O /etc/php5/fpm/pool.d/www.conf https://pastebin.com/raw/XV5Jk5PD
+fi
+
+wget -O /etc/fail2ban/jail.local https://pastebin.com/raw/vH3YywwV
+
+ee_lib_echo "Restart All Serivce..."
+ee stack restart &>> /dev/null
+service fail2ban restart &>> /dev/null
+service memcached restart &>> /dev/null
+
+clear
+ee_lib_echo_info "saran: isi email , user, pass admin di /etc/ee/ee.conf"
+ee_lib_echo_info "klo udah dapet traffic optimasi pake mysqltuner, seeting sendiri nang config php + mysql sesuai saran mysqltuner. lalu restart ee stack restart."
+ee_lib_echo_info "url phpmyadmin:  IPserver:22222 , masukan login http autentikasi. klo lupa reset pake ee secure --auth"
+ee_lib_echo "Gass wallpaper e ^_^..."
