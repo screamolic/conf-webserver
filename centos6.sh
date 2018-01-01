@@ -26,6 +26,7 @@ function ee_lib_echo_fail()
 # Execute: update
 ee_lib_echo "Updating, please wait..."
 yum -y update
+clear
 
 # Execute: installing
 ee_lib_echo "Installing webserver, please wait..."
@@ -33,7 +34,7 @@ yum -y install httpd
 service httpd start
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
-yum -y install php php-common php-xml php-mbstring unzip curl wget htop
+yum -y install php php-common php-xml php-mbstring unzip curl wget htop git
 yum -y install epel*
 wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
 sudo rpm -Uvh remi-release-6*.rpm
@@ -61,6 +62,6 @@ cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
 service httpd restart
 clear
-ee_lib_echo "Cek Spesifikasi:"
+ee_lib_echo "Cek Spesifikasi PHP & IONCUBE:"
 php -v
 httpd -v
