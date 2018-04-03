@@ -34,6 +34,8 @@ yum -y install httpd
 service httpd start
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
+
+ee_lib_echo "Installing php 5.6, please wait..."
 yum -y install php php-common php-xml php-mbstring unzip curl wget htop git
 yum -y install epel*
 wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
