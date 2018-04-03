@@ -62,7 +62,8 @@ wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.t
 tar xvfz ioncube*
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
-service httpd restart
+systemctl enable httpd.service
+systemctl restart httpd.service
 clear
 ee_lib_echo "Cek Spesifikasi:"
 php -v
