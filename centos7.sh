@@ -47,11 +47,6 @@ sudo pecl install geoip
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd-7.conf
 
-#d install geoip
-cd /usr/share/GeoIP
-wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz
-gunzip GeoIP.dat.gz
-
 # Php version
 echo -n "[In progress] Detect PHP version ..."
 VER_PHP="$(command php --version 2>'/dev/null' \
