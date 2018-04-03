@@ -38,18 +38,14 @@ service httpd start
 
 # install php 7
 ee_lib_echo "Installing PHP 7, please wait..."
-
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 yum install -y http://rpms.remirepo.net/enterprise/remi-release-7.rpm
-
 yum install -y yum-utils nano wget git unzip gcc make curl htop
 yum-config-manager --enable remi-php71
 yum install -y httpd php php-common php-dev php-xml php-mbstring php-pear php-pecl-geoip php-devel geoip geoip-devel php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
 sudo pecl install geoip
-
 rm -f /etc/httpd/conf/httpd.conf
 wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd-7.conf
-
 
 #d install geoip
 cd /usr/share/GeoIP
