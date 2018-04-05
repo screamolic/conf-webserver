@@ -60,9 +60,9 @@ ee_lib_echo "Installing ioncube, please wait..."
 cd /var/www/html
 wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 tar xvfz ioncube*
-rm -rf ioncube_loaders_lin_x86-64.tar.gz
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
+rm -rf ioncube*
 systemctl enable httpd.service
 systemctl restart httpd.service
 clear
