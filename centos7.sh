@@ -33,7 +33,10 @@ yum -y install httpd
 
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
-
+sudo firewall-cmd --zone=public --add-service=http
+sudo firewall-cmd --zone=public --permanent --add-service=http
+sudo firewall-cmd --zone=public --add-service=https
+sudo firewall-cmd --zone=public --permanent --add-service=https
 service httpd start
 
 # install php 7
