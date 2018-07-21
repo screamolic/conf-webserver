@@ -36,8 +36,8 @@ service httpd start
 /etc/rc.d/init.d/iptables save
 
 ee_lib_echo "Installing php 7.1, please wait..."
-yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
-yum install http://rpms.remirepo.net/enterprise/remi-release-6.rpm
+yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+yum install -y http://rpms.remirepo.net/enterprise/remi-release-6.rpm
 
 yum -y install yum-utils
 yum-config-manager --enable remi-php71 
