@@ -87,45 +87,51 @@ if [ "$distro_version_number" = "7" ]; then
 	fi
 else
 	ee_lib_echo "Installing webserver, please wait..."
-	yum -y install httpd composer  &>> /dev/null
+	yum -y install httpd composer &>> /dev/null
 	rm -f /etc/httpd/conf/httpd.conf
-	wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
-	service httpd start
+	wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf  &>> /dev/null
+	service httpd start 
 	/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 	/etc/rc.d/init.d/iptables save
 
 	#php 5.6
 	if [ "$phpv" = "56" ]; then
 		ee_lib_echo "Installing PHP 5.6, please wait..."
-		yum -y install php php-common php-xml php-mbstring unzip curl wget htop git
-		yum -y install epel*
-		wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-		sudo rpm -Uvh remi-release-6*.rpm
-		yum -y update
-		yum -y --enablerepo=remi,remi-php56 update
-		yum -y --enablerepo=remi,remi-php56 upgrade
+		yum -y install php php-common php-xml php-mbstring unzip curl wget htop git  &>> /dev/null
+		yum -y install epel*  &>> /dev/null
+		wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm  &>> /dev/null
+		sudo rpm -Uvh remi-release-6*.rpm  &>> /dev/null
+		yum -y update  &>> /dev/null
+		yum -y --enablerepo=remi,remi-php56 update  &>> /dev/null
+		yum -y --enablerepo=remi,remi-php56 upgrade  &>> /dev/null
 		chkconfig httpd on
 	fi
 
 	#php 7.0
 	if [ "$phpv" = "70" ]; then
 		ee_lib_echo "Installing PHP 7.0, please wait..."
+		yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm  &>> /dev/null
+		yum install -y http://rpms.remirepo.net/enterprise/remi-release-6.rpm  &>> /dev/null
 		yum-config-manager --enable remi-php70
-		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git
+		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git &>> /dev/null
 		chkconfig httpd on
 	fi
 	#php 7.1
 	if [ "$phpv" = "71" ]; then
 		ee_lib_echo "Installing PHP 7.0, please wait..."
+		yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm  &>> /dev/null
+		yum install -y http://rpms.remirepo.net/enterprise/remi-release-6.rpm  &>> /dev/null
 		yum-config-manager --enable remi-php71
-		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git
+		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git &>> /dev/null
 		chkconfig httpd on
 	fi
 	#php 7.2
 	if [ "$phpv" = "72" ]; then
 		ee_lib_echo "Installing PHP 7.0, please wait..."
+		yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm  &>> /dev/null
+		yum install -y http://rpms.remirepo.net/enterprise/remi-release-6.rpm  &>> /dev/null
 		yum-config-manager --enable remi-php72
-		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git
+		yum -y install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo php-common php-xml php-mbstring unzip curl wget htop git &>> /dev/null
 		chkconfig httpd on
 	fi
 fi
