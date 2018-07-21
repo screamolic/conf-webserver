@@ -61,7 +61,8 @@ apt-get install bc -y &>> /dev/null
 
 
 # Checking centos version
-if [ "$distro_version_number" != "6.9" ]; then
+lsb_release -d | egrep -e "6.9|6.10" &>> /dev/null
+if [ "$?" -ne "0" ]; then
 		ee_lib_echo "Installing webserver, please wait..."
 		yum -y install httpd composer  &>> /dev/null
 		rm -f /etc/httpd/conf/httpd.conf
@@ -107,7 +108,7 @@ if [ "$distro_version_number" != "6.9" ]; then
 fi
 
 # Checking centos version
-if [ "$distro_version_number" != "7" ]; then
+if [ "$distro_version_number" == "7" ]; then
 		ee_lib_echo "Installing webserver, please wait..."
 		yum -y install httpd composer  &>> /dev/null
 		/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
