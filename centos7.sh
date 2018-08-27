@@ -65,6 +65,7 @@ echo -e "\r\e[0;32m[OK]\e[0m Detect PHP version  : $VER_PHP   "
 # Execute: installing ioncube
 ee_lib_echo "Installing ioncube, please wait..."
 cd /var/www/html
+php -r "readfile('https://getcomposer.org/installer');" | php
 wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 tar xvfz ioncube*
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
