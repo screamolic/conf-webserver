@@ -71,6 +71,9 @@ tar xvfz ioncube*
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
 echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
 rm -rf ioncube*
+echo "0 1 * * * /usr/sbin/reboot >/dev/null 2>&1" >> /etc/crontab
+
+systemctl restart crond.service
 systemctl enable httpd.service
 systemctl restart httpd.service
 clear
