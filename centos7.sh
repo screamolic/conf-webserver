@@ -30,7 +30,7 @@ yum group install "Development Tools" -y
 
 # Execute: installing
 ee_lib_echo "Installing webserver, please wait..."
-yum -y install httpd composer
+yum -y install httpd composer wget
 
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
