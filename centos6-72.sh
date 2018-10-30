@@ -30,7 +30,8 @@ clear
 
 # Execute: installing
 ee_lib_echo "Installing webserver, please wait..."
-yum -y install httpd composer
+yum -y install httpd 
+yum -y install composer
 service httpd start
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
@@ -39,13 +40,13 @@ ee_lib_echo "Installing php 7.2, please wait..."
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 yum install -y http://rpms.remirepo.net/enterprise/remi-release-6.rpm
 
-yum -y install yum-utils
+yum -y install yum-utils wget
 yum-config-manager --enable remi-php72
 yum -y install php php-common php-xml php-mbstring unzip curl wget htop git php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
 
 chkconfig httpd on
 rm -f /etc/httpd/conf/httpd.conf
-wget -O /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
+curl -o https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf /etc/httpd/conf/httpd.conf
 
 # Php version
 echo -n "[In progress] Detect PHP version ..."
