@@ -46,7 +46,7 @@ yum -y install php php-common php-xml php-mbstring unzip curl wget htop git php-
 
 chkconfig httpd on
 rm -f /etc/httpd/conf/httpd.conf
-curl -o https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf /etc/httpd/conf/httpd.conf
+curl -o  /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd.conf
 
 # Php version
 echo -n "[In progress] Detect PHP version ..."
