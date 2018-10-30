@@ -30,7 +30,8 @@ yum group install "Development Tools" -y
 
 # Execute: installing
 ee_lib_echo "Installing webserver, please wait..."
-yum -y install httpd composer wget
+yum -y install httpd wget
+yum -y install composer
 
 /sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
 /etc/rc.d/init.d/iptables save
@@ -66,7 +67,6 @@ echo -e "\r\e[0;32m[OK]\e[0m Detect PHP version  : $VER_PHP   "
 # Execute: installing ioncube
 ee_lib_echo "Installing ioncube, please wait..."
 cd /var/www/html
-yum group install "Development Tools" -y
 wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
 tar xvfz ioncube*
 cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
