@@ -27,6 +27,7 @@ function ee_lib_echo_fail()
 ee_lib_echo "Updating, please wait..."
 yum -y update
 clear
+yum groupinstall "Development Tools" -y
 
 # Execute: installing
 ee_lib_echo "Installing webserver, please wait..."
