@@ -75,6 +75,25 @@ echo "0 1 * * * /usr/sbin/reboot >/dev/null 2>&1" >> /etc/crontab
 systemctl restart crond.service
 systemctl enable httpd.service
 systemctl restart httpd.service
+
+ee_lib_echo "Installing mongodb, please wait..."
+wget -O /etc/yum.repos.d/mongodb-org.repo https://pastebin.com/raw/5D0H3AUA
+yum repolist
+yum install mongodb-org -y
+systemctl start mongod
+systemctl enable mongod
+ 
+# driver
+git clone https://github.com/mongodb/mongo-php-driver.git
+cd mongo-php-driver
+git submodule update --init
+phpize
+./configure
+make all
+sudo make install
+echo "extension=mongodb.so" > /etc/php.d/00-mongo.ini
+service httpd restart
+
 clear
 ee_lib_echo "Cek Spesifikasi:"
 php -v
