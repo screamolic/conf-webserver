@@ -91,9 +91,12 @@ phpize
 ./configure
 make all
 sudo make install
+rm -rf /etc/php.d/00-mongo.ini
 echo "extension=mongodb.so" > /etc/php.d/00-mongo.ini
 service httpd restart
 
+cd /var/www/html
+rm -rf mongo*
 clear
 ee_lib_echo "Cek Spesifikasi:"
 php -v
