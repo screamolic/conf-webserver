@@ -95,8 +95,7 @@ rm -rf /etc/php.d/00-mongo.ini
 echo "extension=mongodb.so" > /etc/php.d/00-mongo.ini
 service httpd restart
 
-cd /var/www/html
-rm -rf mongo*
+cd /var/www/html/mongo*
 clear
 ee_lib_echo "Cek Spesifikasi:"
 php -v
