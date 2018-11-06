@@ -42,13 +42,6 @@ yum install -y php php-common php-dev php-xml php-mbstring php-pear php-pecl-geo
 rm -f /etc/httpd/conf/httpd.conf
 curl -o /etc/httpd/conf/httpd.conf https://raw.githubusercontent.com/screamolic/conf-webserver/master/httpd-7.conf
 
-/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
-/etc/rc.d/init.d/iptables save
-sudo firewall-cmd --zone=public --add-service=http
-sudo firewall-cmd --zone=public --permanent --add-service=http
-sudo firewall-cmd --zone=public --add-service=https
-sudo firewall-cmd --zone=public --permanent --add-service=https
-sudo firewall-cmd --runtime-to-permanent
 
 sudo iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
 sudo iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
