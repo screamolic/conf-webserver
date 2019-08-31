@@ -55,12 +55,20 @@ VER_PHP="$(command php --version 2>'/dev/null' \
 sleep 3s
 echo -e "\r\e[0;32m[OK]\e[0m Detect PHP version  : $VER_PHP   "
 
+# Execute: installing ioncube
+ee_lib_echo "Installing ioncube, please wait..."
+cd /var/www/html
+wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+tar xvfz ioncube*
+cp /var/www/html/ioncube/ioncube_loader_lin_${VER_PHP}.so /usr/lib64/php/modules
+echo "zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_${VER_PHP}.so" >> /etc/php.d/00-ioncube.ini
+rm -rf ioncube*
+echo "0 1 * * * reboot >/dev/null " >> /etc/crontab
+
+systemctl restart crond.service
 systemctl enable httpd.service
 systemctl restart httpd.service
 
-
-# cd
-# rm -rf mongo*
 clear
 ee_lib_echo "Cek Spesifikasi:"
 php -v
